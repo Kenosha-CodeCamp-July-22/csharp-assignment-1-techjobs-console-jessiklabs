@@ -9,11 +9,12 @@ namespace TechJobsConsole
     {
         static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
         static bool IsDataLoaded = false;
+        public static List<Dictionary<string, string>> AllJobsCopy = new List<Dictionary<string, string>>(AllJobs);
 
         public static List<Dictionary<string, string>> FindAll()
         {
             LoadData();
-            return AllJobs;
+            return AllJobsCopy;
         }
 
         /*
@@ -58,11 +59,19 @@ namespace TechJobsConsole
 
                     if (aValue.ToLower().Contains(value.ToLower()))
                     {
-                        jobs.Add(row);
+                        if (jobs.Contains(row))
+                        {
+                            continue;
+                        } else
+                        {
+                            jobs.Add(row);
+                        }
+
+                        
                     }
                 }
             }
-
+            
             return jobs;
         }
 
@@ -89,7 +98,7 @@ namespace TechJobsConsole
                     jobs.Add(row);
                 }
             }
-
+            
             return jobs;
         }
 
